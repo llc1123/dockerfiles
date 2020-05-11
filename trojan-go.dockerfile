@@ -1,5 +1,7 @@
 FROM golang:alpine AS builder
 WORKDIR /
+RUN apk update && apk upgrade && \
+    apk add --no-cache bash git openssh
 RUN git clone --depth=1 https://github.com/p4gefau1t/trojan-go.git
 WORKDIR /trojan-go
 RUN go build -tags "server auth_redis" -ldflags "-s -w" -o ./trojan
